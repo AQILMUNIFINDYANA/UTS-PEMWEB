@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Beasiswa - Universitas Esa Unggul</title>
+    <style>
+        /* General Style */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-top: 50px;
+        }
+
+        /* Login Form */
+        .login-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .login-container h2 {
+            font-size: 24px;
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        .login-container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .login-container input:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        /* Button Styles */
+        .button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            background-color: #0056b3;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #003f7d;
+        }
+
+        /* Main Content */
+        .main-content, #logout-button {
+            display: none;
+        }
+
+        /* Form Container */
+        .form-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .form-container input:focus, .form-container select:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+
+        /* Table Style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Buttons in Table */
+        .button-edit, .button-delete {
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button-edit {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+        }
+        .button-delete {
+            background-color: #f44336;
+            color: white;
+            border: none;
+        }
+        .button-edit:hover {
+            background-color: #45a049;
+        }
+        .button-delete:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Position Logout Button */
+        #logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 14px;
+            padding: 8px 16px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+        #logout-button:hover {
+            background-color: #003f7d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Data Beasiswa - Universitas Esa Unggul</h1>
+
+    <!-- Login Form -->
+    <div class="login-container" id="loginForm">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" required placeholder="Enter your username">
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" required placeholder="Enter your password">
+        
+        <button onclick="login()" class="button">Login</button>
+        <p id="errorMessage" style="color: red; display: none;">Username atau password salah!</p>
+    </div>
+
+    <!-- Main Content (Table and Form) -->
+    <div class="main-content" id="mainContent">
+        <div class="form-container">
+            <label for="id_beasiswa">ID Beasiswa:</label>
+            <input type="text" id="id_beasiswa" required>
+            
+            <label for="nama_beasiswa">Nama Beasiswa:</label>
+            <input type="text" id="nama_beasiswa" required>
+            
+            <label for="jumlah_beasiswa">Jumlah Beasiswa:</label>
+            <input type="number" id="jumlah_beasiswa" required>
+            
+            <label for="jenis_beasiswa">Jenis Beasiswa:</label>
+            <select id="jenis_beasiswa" required>
+                <option value="">Pilih Jenis Beasiswa</option>
+                <option value="Akademik">Akademik</option>
+                <option value="Non-Akademik">Non-Akademik</option>
+            </select>
+            
+            <button id="submitButton" onclick="handleData()" class="button">Tambah Data</button>
+        </div>
+
+        <table id="tabelBeasiswa">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>ID Beasiswa</th>
+                    <th>Nama Beasiswa</th>
+                    <th>Jumlah Beasiswa</th>
+                    <th>Jenis Beasiswa</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data beasiswa akan ditambahkan di sini -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Logout Button -->
+    <button onclick="logout()" id="logout-button" style="display: none;">Logout</button>
+
+    <script>
+        let no = 1;
+        let isLoggedIn = false;
+        let editMode = false;
+        let currentRow;
+
+        // Simulate login function
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // Check for the specific credentials
+            if (username === "20220801525" && password === "hallohtml") {
+                isLoggedIn = true;
+                document.getElementById("loginForm").style.display = "none";
+                document.getElementById("mainContent").style.display = "block";
+                document.getElementById("logout-button").style.display = "inline-block";
+                document.getElementById("errorMessage").style.display = "none";
+            } else {
+                document.getElementById("errorMessage").style.display = "inline";
+            }
+        }
+
+        // Logout function
+        function logout() {
+            isLoggedIn = false;
+            document.getElementById("loginForm").style.display = "block";
+            document.getElementById("mainContent").style.display = "none";
+            document.getElementById("logout-button").style.display = "none";
+        }
+
+        // Handle data (add or edit)
+        function handleData() {
+            const idBeasiswa = document.getElementById("id_beasiswa").value;
+            const namaBeasiswa = document.getElementById("nama_beasiswa").value;
+            const jumlahBeasiswa = document.getElementById("jumlah_beasiswa").value;
+            const jenisBeasiswa = document.getElementById("jenis_beasiswa").value;
+
+            if (idBeasiswa === "" || namaBeasiswa === "" || jumlahBeasiswa === "" || jenisBeasiswa === "") {
+                alert("Harap isi semua kolom!");
+                return;
+            }
+
+            if (editMode) {
+                // Update the existing row with new values
+                currentRow.cells[1].innerText = idBeasiswa;
+                currentRow.cells[2].innerText = namaBeasiswa;
+                currentRow.cells[3].innerText = jumlahBeasiswa;
+                currentRow.cells[4].innerText = jenisBeasiswa;
+
+                editMode = false;
+                document.getElementById("submitButton").innerText = "Tambah Data";
+            } else {
+                // Add a new row
+                const tabel = document.getElementById("tabelBeasiswa").getElementsByTagName("tbody")[0];
+                const row = tabel.insertRow();
+                row.innerHTML = `
+                    <td>${no}</td>
+                    <td>${idBeasiswa}</td>
+                    <td>${namaBeasiswa}</td>
+                    <td>${jumlahBeasiswa}</td>
+                    <td>${jenisBeasiswa}</td>
+                    <td>
+                        <button onclick="editData(this)" class="button-edit">Edit</button>
+                        <button onclick="deleteData(this)" class="button-delete">Delete</button>
+                    </td>
+                `;
+                no++;
+            }
+
+            // Reset the form
+            document.getElementById("id_beasiswa").value = "";
+            document.getElementById("nama_beasiswa").value = "";
+            document.getElementById("jumlah_beasiswa").value = "";
+            document.getElementById("jenis_beasiswa").value = "";
+        }
+
+        // Edit data
+        function editData(button) {
+            editMode = true;
+            currentRow = button.parentElement.parentElement;
+            document.getElementById("id_beasiswa").value = currentRow.cells[1].innerText;
+            document.getElementById("nama_beasiswa").value = currentRow.cells[2].innerText;
+            document.getElementById("jumlah_beasiswa").value = currentRow.cells[3].innerText;
+            document.getElementById("jenis_beasiswa").value = currentRow.cells[4].innerText;
+            document.getElementById("submitButton").innerText = "Update Data";
+        }
+
+        // Delete data
+        function deleteData(button) {
+            const row = button.parentElement.parentElement;
+            row.remove();
+            no--;
+            updateRowNumbers();
+        }
+
+        // Update row numbers after deletion
+        function updateRowNumbers() {
+            const rows = document.getElementById("tabelBeasiswa").getElementsByTagName("tbody")[0].rows;
+            for (let i = 0; i < rows.length; i++) {
+                rows[i].cells[0].innerText = i + 1;
+            }
+        }
+    </script>
+</body>
+</html>
